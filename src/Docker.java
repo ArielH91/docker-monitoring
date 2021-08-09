@@ -2,7 +2,6 @@ import java.io.*;
 
 public class Docker {
     public static void main(String[] args){
-        String line;
 
         try {
             Runtime runtime = Runtime.getRuntime();
@@ -14,15 +13,15 @@ public class Docker {
             BufferedWriter processInput = new BufferedWriter(new OutputStreamWriter(process.getOutputStream()));
 
             int lineCounter = 0;
-
+            String line;
             while ((line = processOutput.readLine()) != null) {
-                processOutput.toString();
+
                 lineCounter++;
                 if (lineCounter == 1) continue;
+                    if(lineCounter == 3) break;
 
-                /*line.split("\n");*/
-                String[] containerData = new String[8];
-                containerData = line.split("  |\\n");
+
+                String[] containerData = line.trim().split("  |\\n");
 
                 DockerContainerData data = new DockerContainerData();
                 data.setContainerId(containerData[0]);

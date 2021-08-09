@@ -25,7 +25,7 @@ public class DockerContainerData {
             this.containerPorts = containerPorts;
             this.containerImage = containerImage;
         }
-        @Override
+
         public String toString() {
             return String.format(
                     "ContainerData[ id='%s', name='%s', status='%s', ports='%s', image='%s']",
