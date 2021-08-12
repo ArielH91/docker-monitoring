@@ -11,8 +11,6 @@ public class Docker {
 
 
             BufferedReader processOutput = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            BufferedWriter processInput = new BufferedWriter(new OutputStreamWriter(process.getOutputStream()));
-
 
             int lineCounter = 0;
             String line;
@@ -40,7 +38,7 @@ public class Docker {
                 }
 
 
-                System.out.println(data.toString());
+                System.out.println(data);
             }
 
         } catch (IOException x) {
