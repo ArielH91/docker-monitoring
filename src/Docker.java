@@ -26,13 +26,20 @@ public class Docker {
                String line2 = line1.trim().replaceAll("    ", "  ");
                 String[] containerData = line2.trim().replaceAll("   ","  ").split("  |\\n");
                 DockerContainerData data = new DockerContainerData();
-
-                data.setContainerId(containerData[0]);
-                data.setContainerName(containerData[6]);
-                data.setContainerStatus(containerData[4]);
-                data.setContainerImage(containerData[1]);
-                data.setContainerPorts(containerData[5]);
-
+                if(containerData[5].isEmpty()) {
+                    data.setContainerId(containerData[0]);
+                    data.setContainerName(containerData[6]);
+                    data.setContainerStatus(containerData[4]);
+                    data.setContainerImage(containerData[1]);
+                    data.setContainerPorts("None");
+                }else
+                {
+                    data.setContainerId(containerData[0]);
+                    data.setContainerName(containerData[6]);
+                    data.setContainerStatus(containerData[4]);
+                    data.setContainerImage(containerData[1]);
+                    data.setContainerPorts(containerData[5]);
+                }
                 System.out.println(data.toString());
             }
 
