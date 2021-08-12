@@ -3,6 +3,7 @@ import java.io.*;
 public class Docker {
     public static void main(String[] args){
 
+
         try {
             Runtime runtime = Runtime.getRuntime();
             String terminal = "docker ps -a";
@@ -12,34 +13,29 @@ public class Docker {
             BufferedReader processOutput = new BufferedReader(new InputStreamReader(process.getInputStream()));
             BufferedWriter processInput = new BufferedWriter(new OutputStreamWriter(process.getOutputStream()));
 
+
             int lineCounter = 0;
             String line;
-            while ((line = processOutput.readLine()) != null) {
 
+
+            while ((line = processOutput.readLine()) != null) {
                 lineCounter++;
                 if (lineCounter == 1) continue;
-                    if(lineCounter == 3) break;
 
-
-                String[] containerData = line.trim().split("  |\\n");
-
+               String line1 = line.trim().replaceAll("     ","  ");
+               String line2 = line1.trim().replaceAll("    ", "  ");
+                String[] containerData = line2.trim().replaceAll("   ","  ").split("  |\\n");
                 DockerContainerData data = new DockerContainerData();
+
                 data.setContainerId(containerData[0]);
-                data.setContainerName(containerData[7]);
+                data.setContainerName(containerData[6]);
                 data.setContainerStatus(containerData[4]);
-                data.setContainerPorts(containerData[5]);
                 data.setContainerImage(containerData[1]);
+                data.setContainerPorts(containerData[5]);
 
-
-                System.out.print(data.getContainerId() + " ");
-                System.out.print(data.getContainerName() + " ");
-                System.out.print(data.getContainerStatus() + " ");
-                System.out.print(data.getContainerPorts() + " ");
-                System.out.println(data.getContainerImage());
+                System.out.println(data.toString());
             }
 
-            processInput.close();
-            processOutput.close();
         } catch (IOException x) {
             x.printStackTrace();
         }

@@ -1,15 +1,6 @@
 
 public class DockerContainerData {
 
-/*        public enum ContainerData {
-            containerId,
-            containerName,
-            containerStatus,
-            containerPorts,
-            containerImage
-
-        }*/
-
         private String containerId;
         private String containerName;
         private String containerStatus;
@@ -26,7 +17,8 @@ public class DockerContainerData {
             this.containerImage = containerImage;
         }
 
-        public String toString() {
+    public String toString() {
+
             return String.format(
                     "ContainerData[ id='%s', name='%s', status='%s', ports='%s', image='%s']",
                     containerId, containerName, containerStatus, containerPorts, containerImage);
@@ -58,11 +50,13 @@ public class DockerContainerData {
         }
 
         public String getContainerPorts(){
-            return containerPorts;
+                return containerPorts;
+
         }
 
         public void setContainerPorts(String newContainerPorts){
             this.containerPorts = newContainerPorts;
+
         }
 
         public String getContainerImage(){
