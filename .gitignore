@@ -1,7 +1,7 @@
-
+/.gitignore
 # Default ignored files
 /.idea/workspace.xml
-
+/.idea/docker-monitoring.iml
 /.idea/
 /lib/
 /out/
