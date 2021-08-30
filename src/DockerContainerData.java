@@ -1,9 +1,9 @@
-
 public class DockerContainerData {
 
         private String containerId;
         private String containerName;
         private String containerStatus;
+
         private String containerPorts;
         private String containerImage;
 

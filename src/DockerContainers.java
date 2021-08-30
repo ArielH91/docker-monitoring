@@ -1,7 +1,15 @@
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.HashMap;
 
-public class Docker {
-    public static void main(String[] args) {
+public class DockerContainers {
+
+    public static HashMap<String, DockerContainerData> containerDataHashMapId = new HashMap<>();
+    public static HashMap<String, DockerContainerData> containerDataHashMapName = new HashMap<>();
+    public static DockerContainerData data;
+
+    public void run(){
 
 
         try {
@@ -37,8 +45,8 @@ public class Docker {
                     data.setContainerName(containerData[5]);
                 }
 
-
-                System.out.println(data);
+                containerDataHashMapId.put(data.getContainerId(),data);
+                containerDataHashMapName.put(data.getContainerName(),data);
             }
 
         } catch (IOException x) {
