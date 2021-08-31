@@ -37,14 +37,4 @@ public class DockerContainerData {
             return containerStatus;
         }
 
-
-        public String getContainerPorts(){
-                return containerPorts;
-        }
-
-        public String getContainerImage(){
-            return containerImage;
-        }
-
-
 }

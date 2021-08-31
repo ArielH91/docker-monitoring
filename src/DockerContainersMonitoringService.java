@@ -33,9 +33,9 @@ public class DockerContainersMonitoringService {
                 DockerContainerData data;
 
                 if(containerData.length > 6) {
-                    data = new DockerContainerData(containerData[0], containerData[6], containerData[4], containerData[5],containerData[1]);
+                    data = new DockerContainerData(containerData[0], containerData[6], containerData[4], containerData[5], containerData[1]);
                 } else {
-                    data = new DockerContainerData(containerData[0], containerData[5], containerData[4], "None",containerData[1]);
+                    data = new DockerContainerData(containerData[0], containerData[5], containerData[4], "None", containerData[1]);
                 }
 
                 containerDataHashMapId.put(data.getContainerId(),data);
