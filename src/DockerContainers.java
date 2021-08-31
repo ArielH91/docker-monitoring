@@ -2,12 +2,18 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
+import java.util.Locale;
 
 public class DockerContainers {
 
     public static HashMap<String, DockerContainerData> containerDataHashMapId = new HashMap<>();
     public static HashMap<String, DockerContainerData> containerDataHashMapName = new HashMap<>();
     public static DockerContainerData data;
+    public String id;
+    public String name;
+    public String status;
+    public String image;
+    public String ports;
 
     public void run(){
 
@@ -32,23 +38,23 @@ public class DockerContainers {
                 }
 
                 String[] containerData = line.split("  ");
-                DockerContainerData data = new DockerContainerData();
+                DockerContainerData data = new DockerContainerData( id, name, status, ports, image);
 
-                data.setContainerId(containerData[0]);
-                data.setContainerImage(containerData[1]);
-                data.setContainerStatus(containerData[4]);
+                data.containerId = containerData[0];
+                data.containerImage = containerData[1];
+                data.containerStatus = containerData[4].toUpperCase(Locale.ROOT);
                 if(containerData.length > 6) {
-                    data.setContainerPorts(containerData[5]);
-                    data.setContainerName(containerData[6]);
+                    data.containerPorts = containerData[5];
+                    data.containerName = containerData[6];
                 } else {
-                    data.setContainerPorts("None");
-                    data.setContainerName(containerData[5]);
+                    data.containerPorts = "None";
+                    data.containerName = containerData[5];
                 }
 
                 containerDataHashMapId.put(data.getContainerId(),data);
                 containerDataHashMapName.put(data.getContainerName(),data);
-            }
 
+            }
         } catch (IOException x) {
             x.printStackTrace();
         }

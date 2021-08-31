@@ -1,15 +1,13 @@
 public class DockerContainerData {
 
-        private String containerId;
-        private String containerName;
-        private String containerStatus;
+        public String containerId;
+        public String containerName;
+        public String containerStatus;
+        public String containerPorts;
+        public String containerImage;
 
-        private String containerPorts;
-        private String containerImage;
 
-        protected DockerContainerData(){}
-
-        public DockerContainerData (String containerId, String containerName, String containerStatus, String containerPorts, String containerImage){
+        public DockerContainerData(String containerId, String containerName, String containerStatus, String containerPorts, String containerImage){
             this.containerId = containerId;
             this.containerName = containerName;
             this.containerStatus = containerStatus;
@@ -21,7 +19,7 @@ public class DockerContainerData {
 
             return String.format(
                     "ContainerData[ id='%s', name='%s', status='%s', ports='%s', image='%s']",
-                    containerId, containerName, containerStatus, containerPorts, containerImage);
+                    getContainerId(), containerName, containerStatus, containerPorts, containerImage);
         }
 
 
