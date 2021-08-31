@@ -2,18 +2,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
-import java.util.Locale;
 
-public class DockerContainers {
+public class DockerContainersMonitoringService {
 
     public static HashMap<String, DockerContainerData> containerDataHashMapId = new HashMap<>();
-    public static HashMap<String, DockerContainerData> containerDataHashMapName = new HashMap<>();
-    public static DockerContainerData data;
-    public String id;
-    public String name;
-    public String status;
-    public String image;
-    public String ports;
 
     public void run(){
 
@@ -37,22 +29,16 @@ public class DockerContainers {
                     line = line.replace("   ", "  ");
                 }
 
-                String[] containerData = line.split("  ");
-                DockerContainerData data = new DockerContainerData( id, name, status, ports, image);
+                String[] containerData = line.split(" {2}");
+                DockerContainerData data;
 
-                data.containerId = containerData[0];
-                data.containerImage = containerData[1];
-                data.containerStatus = containerData[4].toUpperCase(Locale.ROOT);
                 if(containerData.length > 6) {
-                    data.containerPorts = containerData[5];
-                    data.containerName = containerData[6];
+                    data = new DockerContainerData(containerData[0], containerData[6], containerData[4], containerData[5],containerData[1]);
                 } else {
-                    data.containerPorts = "None";
-                    data.containerName = containerData[5];
+                    data = new DockerContainerData(containerData[0], containerData[5], containerData[4], "None",containerData[1]);
                 }
 
                 containerDataHashMapId.put(data.getContainerId(),data);
-                containerDataHashMapName.put(data.getContainerName(),data);
 
             }
         } catch (IOException x) {
