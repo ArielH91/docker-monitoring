@@ -10,9 +10,10 @@ public class DockerMonitoring {
         ExecutorService executor = Executors.newFixedThreadPool(2);
         executor.execute(() -> {
 
-            DockerContainersMonitoringService containers = new DockerContainersMonitoringService();
-            while(true) {
-                containers.run();
+            DockerContainersMonitoringService containersMonitoringService = new DockerContainersMonitoringService();
+            while (true) {
+                containersMonitoringService.run();
+
                 try {
                     Thread.sleep(1000L);
                 } catch (InterruptedException e) {
@@ -23,14 +24,7 @@ public class DockerMonitoring {
         executor.execute(() -> {
 
             DockerMonitoringInterface monitoringInterface = new DockerMonitoringInterface();
-            while (true) {
-                monitoringInterface.run();
-                try {
-                    Thread.sleep(1000L);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
+            monitoringInterface.run();
         });
 
         executor.shutdown();
