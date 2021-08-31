@@ -36,9 +36,9 @@ public class DockerMonitoringInterface {
                 }
                 if (choose.equals("3")) {
                     System.out.println("Enter Container Name");
-                    String name = scan.nextLine().toLowerCase(Locale.ROOT);
+                    String name = scan.nextLine();
                         List<DockerContainerData> result2 = DockerContainersMonitoringService.containerDataHashMapId.values().stream()
-                                .filter(data -> data.getContainerName().toLowerCase(Locale.ROOT).equals(name))
+                                .filter(data -> data.getContainerName().equals(name))
                                 .collect(Collectors.toList());
                     if(!result2.toString().contains("[]")){
                         System.out.println(result2);
