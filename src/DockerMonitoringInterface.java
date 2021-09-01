@@ -19,7 +19,7 @@ public class DockerMonitoringInterface {
             do {
                 System.out.println("Hi,What filter you'd like to apply? 1.ContainerId 2.Status 3.ContainerName 0.Exit");
                 choose = scanner.nextLine();
-                if (Arrays.stream(options).noneMatch(choose::equals)){
+                if (Arrays.stream(options).noneMatch(choose::equals)) {
                     System.out.println("Option " + "'" + choose + "'" + " does not exist");
                 }
                 if (choose.equals(options[1])) {
@@ -44,7 +44,6 @@ public class DockerMonitoringInterface {
         if (DockerContainersMonitoringService.containerDataHashMapId.get(id) != null) {
             System.out.println(DockerContainersMonitoringService.containerDataHashMapId.get(id));
             System.out.println();
-            System.out.println();
         } else {
             System.out.println(wrongValueMessage);
         }
@@ -59,7 +58,6 @@ public class DockerMonitoringInterface {
                     .collect(Collectors.toList());
             System.out.println(result);
             System.out.println();
-            System.out.println();
         } else {
             System.out.println(wrongValueMessage);
         }
@@ -73,7 +71,6 @@ public class DockerMonitoringInterface {
                 .collect(Collectors.toList());
         if (!result2.isEmpty()) {
             System.out.println(result2);
-            System.out.println();
             System.out.println();
         } else {
             System.out.println(wrongNameMessage);

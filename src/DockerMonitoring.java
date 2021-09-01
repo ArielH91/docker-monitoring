@@ -19,9 +19,9 @@ public class DockerMonitoring {
 
             DockerContainersMonitoringService updateStatus = new DockerContainersMonitoringService();
 
-                while (!future.isDone()) {
-                    updateStatus.run();
-                }
+            while (!future.isDone()) {
+                updateStatus.run();
+            }
 
         });
 
