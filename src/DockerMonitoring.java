@@ -15,7 +15,7 @@ public class DockerMonitoring {
             monitoringInterface.run();
         });
 
-        executor.execute(() -> {
+        executor.submit(() -> {
 
             DockerContainersMonitoringService updateStatus = new DockerContainersMonitoringService();
 
