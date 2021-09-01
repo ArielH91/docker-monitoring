@@ -2,21 +2,21 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class DockerMonitoringInterface {
+
     final String wrongValueMessage = "Wrong value, try again";
     final String wrongNameMessage = "Wrong name or container not exists, try again";
     final String[] statuses = {"EXITED", "UP"};
 
-    Scanner scanner = new Scanner(System.in);
+    public Scanner scanner = new Scanner(System.in);
 
     public void run() {
 
         String choose;
-
         try {
 
 
             do {
-                System.out.println("Hi,What filter you'd like to apply? 1.ContainerId 2.Image 3.ContainerName 0.Exit");
+                System.out.println("Hi,What filter you'd like to apply? 1.ContainerId 2.Status 3.ContainerName 0.Exit");
                 choose = scanner.nextLine();
                 if (choose.equals("1")) {
                     searchContainerId();
@@ -33,7 +33,8 @@ public class DockerMonitoringInterface {
 
         }
     }
-    public void searchContainerId(){
+
+    public void searchContainerId() {
         System.out.println("Enter Container Id");
         String id = scanner.nextLine();
         if (DockerContainersMonitoringService.containerDataHashMapId.get(id) != null) {
@@ -42,7 +43,8 @@ public class DockerMonitoringInterface {
             System.out.println(wrongValueMessage);
         }
     }
-    public void searchContainerStatus(){
+
+    public void searchContainerStatus() {
         System.out.println("Enter Status");
         String status = scanner.nextLine().toUpperCase(Locale.ROOT);
         if (Arrays.asList(statuses).contains(status)) {
@@ -54,7 +56,8 @@ public class DockerMonitoringInterface {
             System.out.println(wrongValueMessage);
         }
     }
-    public void searchContainerName(){
+
+    public void searchContainerName() {
         System.out.println("Enter Container Name");
         String name = scanner.nextLine();
         List<DockerContainerData> result2 = DockerContainersMonitoringService.containerDataHashMapId.values().stream()
