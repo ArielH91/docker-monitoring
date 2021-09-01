@@ -17,10 +17,10 @@ public class DockerMonitoring {
 
         executor.execute(() -> {
 
-            DockerContainersMonitoringService containersMonitoringService = new DockerContainersMonitoringService();
+            DockerContainersMonitoringService containersUpdateStatus = new DockerContainersMonitoringService();
 
                 while (!future.isDone()) {
-                    containersMonitoringService.run();
+                    containersUpdateStatus.run();
                 }
 
         });
