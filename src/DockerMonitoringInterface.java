@@ -20,13 +20,13 @@ public class DockerMonitoringInterface {
                     System.out.println("Option " + "'" + choose + "'" + " does not exist");
                 }
                 if (choose.equals(options[1])) {
-                    searchContainerId();
+                    findContainerById();
                 }
                 if (choose.equals(options[2])) {
-                    searchContainerStatus();
+                    findContainerByStatus();
                 }
                 if (choose.equals(options[3])) {
-                    searchContainerName();
+                    findContainerByName();
                 }
             } while (!Objects.equals(choose, options[0]));
         } catch (Exception e) {
@@ -34,7 +34,7 @@ public class DockerMonitoringInterface {
         }
     }
 
-    public void searchContainerId() {
+    public void findContainerById() {
         System.out.println("Enter Container Id");
         String id = scanner.nextLine();
         if (DockerContainersMonitoringService.containerDataHashMapId.get(id) != null) {
@@ -45,7 +45,7 @@ public class DockerMonitoringInterface {
         }
     }
 
-    public void searchContainerStatus() {
+    public void findContainerByStatus() {
         System.out.println("Enter Status");
         String status = scanner.nextLine().toUpperCase(Locale.ROOT);
         if (Arrays.asList(statuses).contains(status)) {
@@ -59,7 +59,7 @@ public class DockerMonitoringInterface {
         }
     }
 
-    public void searchContainerName() {
+    public void findContainerByName() {
         System.out.println("Enter Container Name");
         String name = scanner.nextLine();
         List<DockerContainerData> result2 = DockerContainersMonitoringService.containerDataHashMapId.values().stream()
