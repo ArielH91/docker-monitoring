@@ -7,20 +7,17 @@ public class DockerContainersMonitoringService {
 
     public static HashMap<String, DockerContainerData> containerDataHashMapId = new HashMap<>();
 
-    public void run(){
-
+    public void run() {
 
         try {
             Runtime runtime = Runtime.getRuntime();
             String terminal = "docker ps -a";
             Process process = runtime.exec(terminal);
 
-
             BufferedReader processOutput = new BufferedReader(new InputStreamReader(process.getInputStream()));
 
             int lineCounter = 0;
             String line;
-
 
             while ((line = processOutput.readLine()) != null) {
                 lineCounter++;
@@ -28,18 +25,15 @@ public class DockerContainersMonitoringService {
                 while (line.contains("   ")) {
                     line = line.replace("   ", "  ");
                 }
-
                 String[] containerData = line.split(" {2}");
                 DockerContainerData data;
 
-                if(containerData.length > 6) {
+                if (containerData.length > 6) {
                     data = new DockerContainerData(containerData[0], containerData[6], containerData[4], containerData[5], containerData[1]);
                 } else {
                     data = new DockerContainerData(containerData[0], containerData[5], containerData[4], "None", containerData[1]);
                 }
-
-                containerDataHashMapId.put(data.getContainerId(),data);
-
+                containerDataHashMapId.put(data.getContainerId(), data);
             }
         } catch (IOException x) {
             x.printStackTrace();

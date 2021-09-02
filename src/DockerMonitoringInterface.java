@@ -6,16 +6,13 @@ public class DockerMonitoringInterface {
     final String wrongValueMessage = "Wrong value, try again";
     final String wrongNameMessage = "Wrong name or container not exists, try again";
     final String[] statuses = {"EXITED", "UP"};
-    private String[] options = {"0", "1", "2", "3"};
+    private final String[] options = {"0", "1", "2", "3"};
     public Scanner scanner = new Scanner(System.in);
-
 
     public void run() {
 
         String choose;
         try {
-
-
             do {
                 System.out.println("Hi,What filter you'd like to apply? 1.ContainerId 2.Status 3.ContainerName 0.Exit");
                 choose = scanner.nextLine();
@@ -34,7 +31,6 @@ public class DockerMonitoringInterface {
             } while (!Objects.equals(choose, options[0]));
         } catch (Exception e) {
             e.printStackTrace();
-
         }
     }
 
