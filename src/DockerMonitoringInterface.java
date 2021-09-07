@@ -83,7 +83,7 @@ public class DockerMonitoringInterface {
 
         try {
             Runtime runtime1 = Runtime.getRuntime();
-            String terminal1 = "docker container inspect --format='{{.Platform}},{{.NetworkSettings.Networks.bridge.NetworkID}},{{.Config.Volumes}},{{.Config.Hostname}},{{.Path}}'";
+            String terminal1 = "docker container inspect --format='{{.Platform}},{{.NetworkSettings.Networks}},{{.Config.Volumes}},{{.Config.Hostname}},{{.Path}}'";
 
             Process process1 = runtime1.exec(terminal1 + " " + container);
 
