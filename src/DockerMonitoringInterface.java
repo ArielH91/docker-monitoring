@@ -83,7 +83,7 @@ public class DockerMonitoringInterface {
 
         try {
             Runtime runtime1 = Runtime.getRuntime();
-            String terminal1 = "docker container inspect --format='{{.Platform}},{{.NetworkSettings.Networks.bridge.NetworkID}},{{.Config.Volumes}},{{.Driver}}'";
+            String terminal1 = "docker container inspect --format='{{.Platform}},{{.NetworkSettings.Networks.bridge.NetworkID}},{{.Config.Volumes}},{{.Config.Hostname}},{{.Path}}'";
 
             Process process1 = runtime1.exec(terminal1 + " " + container);
 
@@ -96,7 +96,7 @@ public class DockerMonitoringInterface {
             String[] containerDetails = line.substring(1, line.length() -1).split(",");
             DockerContainerDetails details;
 
-            details = new DockerContainerDetails(containerDetails[1], containerDetails[2], containerDetails[0], containerDetails[3]);
+            details = new DockerContainerDetails(containerDetails[1], containerDetails[2], containerDetails[0], containerDetails[3], containerDetails[4]);
 
             System.out.println(details);
 
