@@ -80,7 +80,6 @@ public class DockerMonitoringInterface {
 
     private void findContainerDetails(String container) {
 
-        HashMap<String, DockerContainerDetails> containerDetailsHashMap = new HashMap<>();
 
         try {
             Runtime runtime1 = Runtime.getRuntime();
@@ -99,9 +98,7 @@ public class DockerMonitoringInterface {
 
             details = new DockerContainerDetails(containerDetails[1], containerDetails[2], containerDetails[0], containerDetails[3]);
 
-            containerDetailsHashMap.put(container, details);
-            List<DockerContainerDetails> details1 = new ArrayList<>(containerDetailsHashMap.values());
-            System.out.println(details1);
+            System.out.println(details);
 
         } catch (IOException x) {
             x.printStackTrace();
