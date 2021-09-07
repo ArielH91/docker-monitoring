@@ -1,3 +1,6 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -14,13 +17,14 @@ public class DockerMonitoringInterface {
         String choose;
         try {
             do {
-                System.out.println("Hi,What filter you'd like to apply? 1.ContainerId 2.Status 3.ContainerName 0.Exit");
+                System.out.println("Hi,What filter you'd like to apply? 1.ContainerId 2.ContainerStatus 3.ContainerName 0.Exit");
                 choose = scanner.nextLine();
                 if (Arrays.stream(options).noneMatch(choose::equals)) {
                     System.out.println("Option " + "'" + choose + "'" + " does not exist");
                 }
                 if (choose.equals(options[1])) {
                     findContainerById();
+
                 }
                 if (choose.equals(options[2])) {
                     findContainerByStatus();
@@ -39,7 +43,7 @@ public class DockerMonitoringInterface {
         String id = scanner.nextLine();
         if (DockerContainersMonitoringService.containerDataHashMapId.get(id) != null) {
             System.out.println(DockerContainersMonitoringService.containerDataHashMapId.get(id));
-            System.out.println();
+            findContainerDetails(id);
         } else {
             System.out.println(wrongValueMessage);
         }
@@ -67,9 +71,40 @@ public class DockerMonitoringInterface {
                 .collect(Collectors.toList());
         if (!result2.isEmpty()) {
             System.out.println(result2);
-            System.out.println();
+            findContainerDetails(name);
+
         } else {
             System.out.println(wrongNameMessage);
+        }
+    }
+
+    private void findContainerDetails(String container) {
+
+        HashMap<String, DockerContainerDetails> containerDetailsHashMap = new HashMap<>();
+
+        try {
+            Runtime runtime1 = Runtime.getRuntime();
+            String terminal1 = "docker container inspect --format='{{.Platform}},{{.NetworkSettings.Networks.bridge.NetworkID}},{{.Config.Volumes}},{{.Driver}}'";
+
+            Process process1 = runtime1.exec(terminal1 + " " + container);
+
+            BufferedReader processOutput1 = new BufferedReader(new InputStreamReader(process1.getInputStream()));
+
+            String line;
+
+            line = processOutput1.readLine();
+
+            String[] containerDetails = line.substring(1, line.length() -1).split(",");
+            DockerContainerDetails details;
+
+            details = new DockerContainerDetails(containerDetails[1], containerDetails[2], containerDetails[0], containerDetails[3]);
+
+            containerDetailsHashMap.put(container, details);
+            List<DockerContainerDetails> details1 = new ArrayList<>(containerDetailsHashMap.values());
+            System.out.println(details1);
+
+        } catch (IOException x) {
+            x.printStackTrace();
         }
     }
 }
