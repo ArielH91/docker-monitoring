@@ -1,21 +1,20 @@
-import lombok.Data;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
 
-@Data
+@AllArgsConstructor
 public class DockerContainerDetails {
-    @Setter
-    private String containerNetwork;
-    private String containerVolumes;
-    private String containerPlatform;
-    private String containerHostname;
-    private String containerPath;
+
+    private final String containerNetwork;
+    private final String containerVolumes;
+    private final String containerPlatform;
+    private final String containerHostname;
+    private final String containerPath;
 
 
-    public DockerContainerDetails(String containerNetwork, String containerVolumes, String containerPlatform, String containerHostname, String containerPath) {
+/*    public DockerContainerDetails(String containerNetwork, String containerVolumes, String containerPlatform, String containerHostname, String containerPath) {
         this.containerNetwork = containerNetwork;
         this.containerVolumes = containerVolumes;
         this.containerPlatform = containerPlatform;
         this.containerHostname = containerHostname;
         this.containerPath = containerPath;
-    }
+    }*/
 }
