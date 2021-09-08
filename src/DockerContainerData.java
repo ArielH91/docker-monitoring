@@ -1,10 +1,10 @@
 public class DockerContainerData {
 
-    private String containerId;
-    private String containerName;
-    private String containerStatus;
-    private String containerPorts;
-    private String containerImage;
+    private final String containerId;
+    private final String containerName;
+    private final String containerStatus;
+    private final String containerPorts;
+    private final String containerImage;
 
     public DockerContainerData(String containerId, String containerName, String containerStatus, String containerPorts, String containerImage) {
         this.containerId = containerId;
