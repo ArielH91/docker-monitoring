@@ -1,8 +1,11 @@
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 
+@Slf4j
 public class DockerContainersMonitoringService {
 
     public static HashMap<String, DockerContainerData> containerDataHashMapId = new HashMap<>();
@@ -35,8 +38,8 @@ public class DockerContainersMonitoringService {
                 }
                 containerDataHashMapId.put(data.getContainerId(), data);
             }
-        } catch (IOException x) {
-            x.printStackTrace();
+        } catch (IOException e) {
+            log.warn(e.getMessage());
         }
     }
 }

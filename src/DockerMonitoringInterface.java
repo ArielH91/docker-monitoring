@@ -1,9 +1,12 @@
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Slf4j
 public class DockerMonitoringInterface {
 
     final String wrongValueMessage = "Wrong value, try again";
@@ -34,7 +37,7 @@ public class DockerMonitoringInterface {
                 }
             } while (!Objects.equals(choose, options[0]));
         } catch (Exception e) {
-            e.printStackTrace();
+            log.warn(e.getMessage());
         }
     }
 
@@ -100,8 +103,8 @@ public class DockerMonitoringInterface {
 
             System.out.println(details);
 
-        } catch (IOException x) {
-            x.printStackTrace();
+        } catch (IOException e) {
+            log.warn(e.getMessage());
         }
     }
 }
