@@ -1,6 +1,6 @@
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class DockerContainerDetails {
 
     private final String containerNetwork;
