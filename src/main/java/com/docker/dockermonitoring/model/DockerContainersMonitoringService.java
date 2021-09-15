@@ -1,3 +1,5 @@
+package com.docker.dockermonitoring.model;
+
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.BufferedReader;
@@ -6,11 +8,11 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 
 @Slf4j
-public class DockerContainersMonitoringService {
 
+public class DockerContainersMonitoringService {
     public static HashMap<String, DockerContainerData> containerDataHashMapId = new HashMap<>();
 
-    public void run() {
+    public static void run() {
 
         try {
             Runtime runtime = Runtime.getRuntime();
@@ -36,6 +38,7 @@ public class DockerContainersMonitoringService {
                 } else {
                     data = new DockerContainerData(containerData[0], containerData[5], containerData[4], "None", containerData[1]);
                 }
+
                 containerDataHashMapId.put(data.getContainerId(), data);
             }
         } catch (IOException e) {

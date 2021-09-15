@@ -1,8 +1,7 @@
+package com.docker.dockermonitoring.model;
+
 import lombok.extern.slf4j.Slf4j;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -46,7 +45,7 @@ public class DockerMonitoringInterface {
         String id = scanner.nextLine();
         if (DockerContainersMonitoringService.containerDataHashMapId.get(id) != null) {
             System.out.println(DockerContainersMonitoringService.containerDataHashMapId.get(id));
-            findContainerDetails(id);
+            /*findContainerDetails(id);*/
         } else {
             System.out.println(wrongValueMessage);
         }
@@ -74,14 +73,14 @@ public class DockerMonitoringInterface {
                 .collect(Collectors.toList());
         if (!result2.isEmpty()) {
             System.out.println(result2);
-            findContainerDetails(name);
+            /*findContainerDetails(name);*/
 
         } else {
             System.out.println(wrongNameMessage);
         }
     }
 
-    private void findContainerDetails(String container) {
+ /*   private void findContainerDetails(String container) {
 
 
         try {
@@ -106,5 +105,5 @@ public class DockerMonitoringInterface {
         } catch (IOException e) {
             log.warn(e.getMessage());
         }
-    }
+    }*/
 }
