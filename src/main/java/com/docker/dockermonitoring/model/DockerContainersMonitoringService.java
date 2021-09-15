@@ -40,6 +40,7 @@ public class DockerContainersMonitoringService {
                 }
 
                 containerDataHashMapId.put(data.getContainerId(), data);
+                System.out.println(data);
             }
         } catch (IOException e) {
             log.warn(e.getMessage());

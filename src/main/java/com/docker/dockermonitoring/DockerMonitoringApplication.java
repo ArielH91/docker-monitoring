@@ -14,9 +14,6 @@ import java.util.concurrent.Future;
 public class DockerMonitoringApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(DockerMonitoringApplication.class, args);
-
-
         ExecutorService executor = Executors.newFixedThreadPool(2);
         Future<?> future = executor.submit(() -> {
             DockerMonitoringInterface monitoringInterface = new DockerMonitoringInterface();
@@ -29,6 +26,9 @@ public class DockerMonitoringApplication {
             }
         });
 
+        SpringApplication.run(DockerMonitoringApplication.class, args);
+
         executor.shutdown();
+
     }
 }
