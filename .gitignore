@@ -1,3 +1,4 @@
+/.gitignore
 HELP.md
 .gradle
 build/
@@ -25,6 +26,10 @@ bin/
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
+/.idea/workspace.xml
+/.idea/docker-monitoring.iml
+/.idea/
+/lib/
 
 ### NetBeans ###
 /nbproject/private/
@@ -36,9 +41,6 @@ out/
 ### VS Code ###
 .vscode/
 
-/.gitignore
-# Default ignored files
-/.idea/workspace.xml
-/.idea/docker-monitoring.iml
-/.idea/
-/lib/
+
+
+
