@@ -10,7 +10,7 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @Entity
 @Table(name = "containers")
-public class DockerContainerData extends DockerContainersMonitoringService {
+public class DockerContainerData {
     @Id
     private String containerId;
     private String containerName;

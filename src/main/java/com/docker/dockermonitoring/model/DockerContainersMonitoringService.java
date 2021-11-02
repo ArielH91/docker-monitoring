@@ -1,6 +1,8 @@
 package com.docker.dockermonitoring.model;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -8,11 +10,11 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 
 @Slf4j
-
+@Service
 public class DockerContainersMonitoringService {
     public static HashMap<String, DockerContainerData> containerDataHashMapId = new HashMap<>();
-
-    public static void run() {
+    @Autowired
+    public static void runService() {
 
         try {
             Runtime runtime = Runtime.getRuntime();
@@ -40,7 +42,7 @@ public class DockerContainersMonitoringService {
                 }
 
                 containerDataHashMapId.put(data.getContainerId(), data);
-                System.out.println(data);
+/*                System.out.println(data);*/
             }
         } catch (IOException e) {
             log.warn(e.getMessage());

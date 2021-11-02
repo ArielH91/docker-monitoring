@@ -22,7 +22,7 @@ public class DockerController {
     }
 
     @PostMapping("/dockerContainerDatas")
-    ResponseEntity<DockerContainerData> createTask(@RequestBody DockerContainerData containerData) {
+    ResponseEntity<DockerContainerData> createContainer(@RequestBody DockerContainerData containerData) {
         DockerContainerData result = repository.save(containerData);
         return ResponseEntity.created(URI.create("/" + result.getContainerId())).body(result);
     }
