@@ -11,7 +11,7 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @Entity
 @Data
-@Table(name = "containers")
+@Table(name = "CONTAINERS")
 public class DockerContainerData {
 
     @Id
