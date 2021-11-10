@@ -1,8 +1,12 @@
 package com.docker.dockermonitoring;
 import com.docker.dockermonitoring.model.DockerContainersMonitoringService;
 import com.docker.dockermonitoring.model.DockerMonitoringInterface;
+import org.hibernate.service.spi.InjectService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 import java.util.concurrent.ExecutorService;
@@ -11,20 +15,26 @@ import java.util.concurrent.Future;
 
 @EnableAsync
 @SpringBootApplication
-
 public class DockerMonitoringApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(DockerMonitoringApplication.class, args);
+    @Autowired
+    DockerContainersMonitoringService updateStatus;
+    @Autowired
+    DockerMonitoringInterface monitoringInterface;
+
+    public DockerMonitoringApplication(ConfigurableApplicationContext context) {
+        monitoringInterface = context.getBean(DockerMonitoringInterface.class);
+        updateStatus = context.getBean(DockerContainersMonitoringService.class);
+    }
+
+    public void run(){
 
         ExecutorService executor = Executors.newFixedThreadPool(2);
 
         Future<?> future = executor.submit(() -> {
-            DockerMonitoringInterface monitoringInterface = new DockerMonitoringInterface();
             monitoringInterface.run();
         });
         executor.submit(() -> {
-            DockerContainersMonitoringService updateStatus = new DockerContainersMonitoringService();
             while (!future.isDone()) {
                 updateStatus.runService();
             }
@@ -33,6 +43,16 @@ public class DockerMonitoringApplication {
 
 
         executor.shutdown();
+    }
+
+    public static void main(String[] args) {
+
+
+        ConfigurableApplicationContext context = SpringApplication.run(DockerMonitoringApplication.class, args);
+
+        DockerMonitoringApplication dockerMonitoringApplication = new DockerMonitoringApplication(context);
+
+        dockerMonitoringApplication.run();
 
     }
 }

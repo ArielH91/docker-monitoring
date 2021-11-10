@@ -19,5 +19,13 @@ interface DockerContainerRepository extends JpaRepository<DockerContainerData, S
 
     Optional<DockerContainerData> findByContainerId(String containerId);
 
+    List<DockerContainerData> findByContainerStatus(String containerStatus);
+
+    Optional<DockerContainerData> findByContainerNameContainingIgnoreCase(String containerName);
+
+    List<DockerContainerData> findByContainerPortsContainingIgnoreCase(String containerPorts);
+
+    List<DockerContainerData> findByContainerImageContainingIgnoreCase(String containerImage);
+
     DockerContainerData save(DockerContainerData data);
 }

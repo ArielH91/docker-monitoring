@@ -1,17 +1,23 @@
 package com.docker.dockermonitoring.model;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
+@Service
 public class DockerMonitoringInterface {
 
+    @Autowired
+    private DockerContainerRepository repository;
     final String wrongValueMessage = "Wrong value, try again";
     final String wrongNameMessage = "Wrong name or container not exists, try again";
     final String[] statuses = {"EXITED", "UP"};
-    private final String[] options = {"0", "1", "2", "3"};
+    private final String[] options = {"0", "1", "2", "3", "4", "5"};
     public Scanner scanner = new Scanner(System.in);
 
     public void run() {
@@ -34,6 +40,12 @@ public class DockerMonitoringInterface {
                 if (choose.equals(options[3])) {
                     findContainerByName();
                 }
+                if (choose.equals(options[4])) {
+                    findContainerByPorts();
+                }
+                if (choose.equals(options[5])) {
+                    findContainersByImage();
+                }
             } while (!Objects.equals(choose, options[0]));
         } catch (Exception e) {
             log.warn(e.getMessage());
@@ -43,9 +55,9 @@ public class DockerMonitoringInterface {
     public void findContainerById() {
         System.out.println("Enter Container Id");
         String id = scanner.nextLine();
-        if (DockerContainersMonitoringService.containerDataHashMapId.get(id) != null) {
-            System.out.println(DockerContainersMonitoringService.containerDataHashMapId.get(id));
-            /*findContainerDetails(id);*/
+        Optional<DockerContainerData> containerData = repository.findByContainerId(id);
+        if (containerData.isPresent()) {
+            System.out.println(containerData.get());
         } else {
             System.out.println(wrongValueMessage);
         }
@@ -55,11 +67,8 @@ public class DockerMonitoringInterface {
         System.out.println("Enter Status");
         String status = scanner.nextLine().toUpperCase(Locale.ROOT);
         if (Arrays.asList(statuses).contains(status)) {
-            List<DockerContainerData> result = DockerContainersMonitoringService.containerDataHashMapId.values().stream()
-                    .filter(data -> data.getContainerStatus().toUpperCase(Locale.ROOT).contains(status))
-                    .collect(Collectors.toList());
-            System.out.println(result);
-            System.out.println();
+            List<DockerContainerData> containersStatus = repository.findByContainerStatus(status);
+            System.out.println(containersStatus);
         } else {
             System.out.println(wrongValueMessage);
         }
@@ -68,15 +77,35 @@ public class DockerMonitoringInterface {
     public void findContainerByName() {
         System.out.println("Enter Container Name");
         String name = scanner.nextLine();
-        List<DockerContainerData> result2 = DockerContainersMonitoringService.containerDataHashMapId.values().stream()
-                .filter(data -> data.getContainerName().equals(name))
-                .collect(Collectors.toList());
-        if (!result2.isEmpty()) {
-            System.out.println(result2);
-            /*findContainerDetails(name);*/
+        Optional<DockerContainerData> containerName = repository.findByContainerNameContainingIgnoreCase(name);
+        if (containerName.isPresent()) {
+            System.out.println(containerName);
 
         } else {
             System.out.println(wrongNameMessage);
+        }
+    }
+
+    public void findContainerByPorts() {
+        System.out.println("Enter Ports");
+        String ports = scanner.nextLine().toUpperCase(Locale.ROOT);
+        List<DockerContainerData> containerData = repository.findByContainerPortsContainingIgnoreCase(ports);
+        if (!containerData.isEmpty()) {
+            System.out.println(containerData);
+        } else {
+            System.out.println(wrongValueMessage);
+        }
+    }
+
+        public void findContainersByImage () {
+            System.out.println("Enter Containers Image");
+            String image = scanner.nextLine();
+            List<DockerContainerData> containersImage = repository.findByContainerImageContainingIgnoreCase(image);
+            if (!containersImage.isEmpty()) {
+                System.out.println(containersImage);
+            } else {
+                System.out.println(wrongNameMessage);
+            }
         }
     }
 
@@ -106,4 +135,3 @@ public class DockerMonitoringInterface {
             log.warn(e.getMessage());
         }
     }*/
-}
