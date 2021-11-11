@@ -1,10 +1,7 @@
 package com.docker.dockermonitoring.controller;
 
 import com.docker.dockermonitoring.dto.DataForCreateContainer;
-import com.docker.dockermonitoring.model.DockerContainerData;
-import com.docker.dockermonitoring.model.DockerContainerRepository;
-import com.docker.dockermonitoring.model.DockerRequest;
-import com.docker.dockermonitoring.model.DockerRequestRepository;
+import com.docker.dockermonitoring.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;
@@ -27,7 +24,25 @@ public class DockerController {
 
     @PostMapping(value = "/create")
     public ResponseEntity<DockerRequest> createDocker (@RequestBody @Valid DataForCreateContainer dockerContainer) {
-        DockerRequest createContainer = requestRepository.save(DockerRequest.getInstance(dockerContainer));
+        DockerRequest createContainer = requestRepository.save(DockerRequest.getInstance(dockerContainer, ScheduledRequestOperator.RequestAction.CREATE.getAction()));
+        return ResponseEntity.ok(createContainer);
+    }
+
+    @PatchMapping(value = "/start")
+    public ResponseEntity<DockerRequest> startDocker (@RequestBody @Valid DataForCreateContainer dockerContainer) {
+        DockerRequest createContainer = requestRepository.save(DockerRequest.getInstance(dockerContainer, ScheduledRequestOperator.RequestAction.START.getAction()));
+        return ResponseEntity.ok(createContainer);
+    }
+
+    @PatchMapping(value = "/stop")
+    public ResponseEntity<DockerRequest> stopDocker (@RequestBody @Valid DataForCreateContainer dockerContainer) {
+        DockerRequest createContainer = requestRepository.save(DockerRequest.getInstance(dockerContainer, ScheduledRequestOperator.RequestAction.STOP.getAction()));
+        return ResponseEntity.ok(createContainer);
+    }
+
+    @DeleteMapping(value = "/remove")
+    public ResponseEntity<DockerRequest> deleteDocker (@RequestBody @Valid DataForCreateContainer dockerContainer) {
+        DockerRequest createContainer = requestRepository.save(DockerRequest.getInstance(dockerContainer, ScheduledRequestOperator.RequestAction.REMOVE.getAction()));
         return ResponseEntity.ok(createContainer);
     }
 

@@ -38,7 +38,7 @@ public class DockerMonitoringApplication {
         executor.submit(() -> {
             while (true) {
                 Thread.sleep(5000);
-                scheduledRequestOperator.createDocker();
+                scheduledRequestOperator.handleRequest();
             }
         });
 

@@ -30,8 +30,8 @@ public class DockerRequest {
     private String action;
 
 
-    public static DockerRequest getInstance(DataForCreateContainer dockerContainer) {
+    public static DockerRequest getInstance(DataForCreateContainer dockerContainer, String action) {
         return new DockerRequest( 0,
-                dockerContainer.getContainerName(), dockerContainer.getContainerPort(),dockerContainer.getContainerImage(), "p", LocalDateTime.now(), "none");
+                dockerContainer.getContainerName(), dockerContainer.getContainerPort(),dockerContainer.getContainerImage(), "p", LocalDateTime.now(), action);
     }
 }
