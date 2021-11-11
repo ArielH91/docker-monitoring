@@ -23,39 +23,43 @@ public class DockerController {
     }
 
     @GetMapping(value = "/containers", params = {"!sort", "!page", "!size"})
-    ResponseEntity<List<DockerContainerData>> readAllContainers() {
+    public ResponseEntity<List<DockerContainerData>> readAllContainers() {
         logger.warn("Exposing all containers");
         return ResponseEntity.ok(repository.findAll());
     }
 
     @GetMapping("/containers")
-    ResponseEntity<List<DockerContainerData>> readAllContainers(Pageable page) {
+    public ResponseEntity<List<DockerContainerData>> readAllContainers(Pageable page) {
         logger.info("Custom pageable");
         return ResponseEntity.ok(repository.findAll(page).getContent());
     }
 
     @GetMapping("container/searchById/{containerId}")
-    ResponseEntity<DockerContainerData> searchById(@PathVariable String containerId) {
-        return repository.findById(containerId)
+    public ResponseEntity<DockerContainerData> searchById(@PathVariable String containerId) {
+        return repository.findByContainerId(containerId)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("container/searchByName/{containerName}")
-    ResponseEntity<DockerContainerData> searchByName(@PathVariable String containerName) {
+    public ResponseEntity<DockerContainerData> searchByName(@PathVariable String containerName) {
         return repository.findByContainerName(containerName)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("container/searchByStatus/{containerStatus}")
-    List<DockerContainerData> searchByStatus(@PathVariable String containerStatus) {
+    public List<DockerContainerData> searchByStatus(@PathVariable String containerStatus) {
         return repository.findByContainerStatusContainingIgnoreCase(containerStatus);
     }
 
     @GetMapping("container/searchByPorts/{containerPorts}")
-    List<DockerContainerData> searchByPorts(@PathVariable String containerPorts) {
+    public List<DockerContainerData> searchByPorts(@PathVariable String containerPorts) {
         return repository.findByContainerPortsContainingIgnoreCase(containerPorts);
     }
 
+    @GetMapping("container/searchByPorts/{containerImage}")
+    public List<DockerContainerData> searchByImage(@PathVariable String containerImage) {
+        return repository.findByContainerImageContainingIgnoreCase(containerImage);
+    }
 }

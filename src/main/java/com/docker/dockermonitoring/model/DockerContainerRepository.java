@@ -1,6 +1,5 @@
 package com.docker.dockermonitoring.model;
 
-import com.fasterxml.jackson.annotation.OptBoolean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
