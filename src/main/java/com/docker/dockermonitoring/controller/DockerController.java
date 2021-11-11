@@ -1,25 +1,34 @@
 package com.docker.dockermonitoring.controller;
 
+import com.docker.dockermonitoring.dto.DataForCreateContainer;
 import com.docker.dockermonitoring.model.DockerContainerData;
 import com.docker.dockermonitoring.model.DockerContainerRepository;
+import com.docker.dockermonitoring.model.DockerRequest;
+import com.docker.dockermonitoring.model.DockerRequestRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-
 public class DockerController {
     public static final Logger logger = LoggerFactory.getLogger(DockerController.class);
     private final DockerContainerRepository repository;
+    private final DockerRequestRepository requestRepository;
 
-    public DockerController(DockerContainerRepository repository) {
+    public DockerController(DockerContainerRepository repository, DockerRequestRepository requestRepository) {
         this.repository = repository;
+        this.requestRepository = requestRepository;
+    }
+
+    @PostMapping(value = "/create")
+    public ResponseEntity<DockerRequest> createDocker (@RequestBody @Valid DataForCreateContainer dockerContainer) {
+        DockerRequest createContainer = requestRepository.save(DockerRequest.getInstance(dockerContainer));
+        return ResponseEntity.ok(createContainer);
     }
 
     @GetMapping(value = "/containers", params = {"!sort", "!page", "!size"})
