@@ -1,5 +1,8 @@
 package com.docker.dockermonitoring.controller;
 
+import com.docker.dockermonitoring.adapter.DockerContainerRepository;
+import com.docker.dockermonitoring.adapter.DockerRequestRepository;
+import com.docker.dockermonitoring.logic.ScheduledRequestOperator;
 import com.docker.dockermonitoring.dto.DataForCreateContainer;
 import com.docker.dockermonitoring.model.*;
 import org.slf4j.Logger;

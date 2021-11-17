@@ -1,5 +1,7 @@
-package com.docker.dockermonitoring.model;
+package com.docker.dockermonitoring.logic;
 
+import com.docker.dockermonitoring.model.DockerContainerData;
+import com.docker.dockermonitoring.adapter.DockerContainerRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

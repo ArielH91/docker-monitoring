@@ -1,7 +1,7 @@
 package com.docker.dockermonitoring;
 
-import com.docker.dockermonitoring.model.DockerContainersMonitoringService;
-import com.docker.dockermonitoring.model.ScheduledRequestOperator;
+import com.docker.dockermonitoring.logic.DockerContainersMonitoringService;
+import com.docker.dockermonitoring.logic.ScheduledRequestOperator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,5 +1,6 @@
-package com.docker.dockermonitoring.model;
+package com.docker.dockermonitoring.adapter;
 
+import com.docker.dockermonitoring.model.DockerRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

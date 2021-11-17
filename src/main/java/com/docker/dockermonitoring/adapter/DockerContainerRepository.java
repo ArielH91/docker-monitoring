@@ -1,5 +1,6 @@
-package com.docker.dockermonitoring.model;
+package com.docker.dockermonitoring.adapter;
 
+import com.docker.dockermonitoring.model.DockerContainerData;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
